@@ -80,10 +80,10 @@ export const CreateProduct = ({ product }: any) => {
           variables: {
             id: parseInt(id),
             name: values.Product.name,
-            stock: values.Product.Stock,
+            stock: values.Product.Stock.toString(),
             description: values.Product.Description,
             category: values.Product.Category,
-            price: values.Product.Price,
+            price: values.Product.Price.toString(),
           },
         });
        

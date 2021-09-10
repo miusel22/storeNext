@@ -1,4 +1,3 @@
-## TITAMEDIA
 
 ## 
 Esta aplicación fue realizada con:

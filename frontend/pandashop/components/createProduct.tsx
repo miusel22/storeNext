@@ -38,7 +38,7 @@ export const CreateProduct = ({ product }: any) => {
     fetchPolicy: "network-only",
   });
 
-  const [updateProduct, { error, data }] = useMutation(UPDATE_PRODUCT,{
+  const [updateProduct, { error, data,loading:load }] = useMutation(UPDATE_PRODUCT,{
     fetchPolicy: "network-only" 
   });
   const layout = {
@@ -87,7 +87,7 @@ export const CreateProduct = ({ product }: any) => {
           },
         });
        
-        if (data) {
+        if (!load) {
           openMessageEdit();
           setTimeout(() => {
             window.location.reload();

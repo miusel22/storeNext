@@ -179,7 +179,7 @@ export const CreateProduct = ({ product }: any) => {
             rules={[{ required: true }]}
             name={["Product", "Stock"]}
           >
-            <InputNumber min={1} max={100} />
+            <InputNumber min={1} max={100000} />
           </Form.Item>
           <Form.Item
             initialValue={price}

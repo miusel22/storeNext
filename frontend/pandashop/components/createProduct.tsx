@@ -13,7 +13,13 @@ import {
 const openMessage = () => {
   message.loading({ content: "Loading...", key });
   setTimeout(() => {
-    message.success({ content: "Loaded!", key, duration: 2 });
+    message.success({ content: "Product created", key, duration: 2 });
+  }, 1000);
+};
+const openMessageEdit = () => {
+  message.loading({ content: "Loading...", key });
+  setTimeout(() => {
+    message.success({ content: "Product edited", key, duration: 2 });
   }, 1000);
 };
 const key = "updatable";
@@ -28,8 +34,10 @@ export const CreateProduct = ({ product }: any) => {
   const [modalText, setModalText] = React.useState("");
   const [form] = Form.useForm();
 
-  const [createProduct] = useMutation(CREATE_PRODUCT);
-  const [updateProduct] = useMutation(UPDATE_PRODUCT);
+  const [createProduct, { loading }] = useMutation(CREATE_PRODUCT);
+
+  const [updateProduct, { error, data }] = useMutation(UPDATE_PRODUCT);
+
 
   const layout = {
     labelCol: { span: 8 },
@@ -56,7 +64,7 @@ export const CreateProduct = ({ product }: any) => {
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
+ 
     setVisible(false);
   };
 
@@ -76,7 +84,13 @@ export const CreateProduct = ({ product }: any) => {
             price: values.Product.Price,
           },
         });
-        form.resetFields();
+       
+        if (data?.updateProduct) {
+          openMessageEdit();
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
       } else {
         createProduct({
           variables: {
@@ -88,6 +102,12 @@ export const CreateProduct = ({ product }: any) => {
           },
         });
         form.resetFields();
+        if (!loading) {
+          openMessage();
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
       }
     } catch (error) {}
   };
@@ -96,12 +116,14 @@ export const CreateProduct = ({ product }: any) => {
     <>
       {product.id ? (
         <Button type="primary" onClick={showModal}>
-          Edit product
+          Edit
         </Button>
       ) : (
-        <Button type="primary" onClick={showModal}>
-          Create Product
-        </Button>
+        <div className="create-product">
+          <Button type="primary" style={{ background: "green", borderColor: "green",marginRight:5 }} onClick={showModal}>
+            Create Product
+          </Button>
+        </div>
       )}
 
       <Modal
@@ -155,7 +177,7 @@ export const CreateProduct = ({ product }: any) => {
             rules={[{ required: true }]}
             name={["Product", "Stock"]}
           >
-            <InputNumber />
+            <InputNumber min={1} max={100} />
           </Form.Item>
           <Form.Item
             initialValue={price}
@@ -163,13 +185,14 @@ export const CreateProduct = ({ product }: any) => {
             rules={[{ required: true }]}
             name={["Product", "Price"]}
           >
-            <InputNumber />
+            <InputNumber min={1} max={1000000} />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" onClick={openMessage} htmlType="submit">
+            <Button type="primary" htmlType="submit">
               Save
             </Button>
           </Form.Item>
+        
         </Form>
       </Modal>
     </>

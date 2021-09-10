@@ -21,10 +21,6 @@ export const Header = () => {
           <Image src={Icon} alt="" />
         </div>
       </div>
-      {/* <div className="header-right">
-      <Image src={Icon} alt=""/>
-  
-      </div> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { GET_ALL_PRODUCTS } from "../graphql/Queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { Products } from "../components/Products";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
+import { Spin } from "antd";
 const Home: NextPage = ({ products, loading }: any) => {
   const client = new ApolloClient({
     uri: "http://localhost:4000/graphql",
@@ -16,15 +16,13 @@ const Home: NextPage = ({ products, loading }: any) => {
   return (
     <div>
       <ApolloProvider client={client}>
-        {loading ? "loading" : <Products products={products} />}
+        {loading ? <Spin tip="Loading..." /> : <Products products={products} />}
       </ApolloProvider>
-      ,
     </div>
   );
 };
 
 export async function getStaticProps() {
-  
   const { data, loading } = await client.query({
     query: gql`
       query {

@@ -33,9 +33,9 @@ export async function getStaticProps() {
           description
           price
           category
-        }
-      }
-    `,
+        }, 
+      },
+    `,fetchPolicy: "no-cache" 
   });
 
   return {

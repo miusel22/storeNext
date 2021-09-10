@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { gql } from "@apollo/client";
-import client from "./apollo-client";
+import {client} from "./apollo-client";
 import { useState } from "react";
 import { GET_ALL_PRODUCTS } from "../graphql/Queries";
 import { useQuery, useMutation } from "@apollo/client";

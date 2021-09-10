@@ -1,50 +1,47 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
 import { gql } from "@apollo/client";
-import client from "./apollo-client";
+import { client } from "./apollo-client";
 import { useState } from "react";
-import { GET_ALL_PRODUCTS } from '../graphql/Queries';
+// import { GET_ALL_PRODUCTS } from "../graphql/Queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { Products } from '../components/Products';
+import { Products } from "../components/Products";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+const [newData, setNewData] = useState("");
 
-
-const Home: NextPage = ({products}:any) => {
-  const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
-    cache: new InMemoryCache(),
-});
-
+const Home: NextPage = ({ products }: any) => {
   return (
     <div>
-     <Products products={products} />
+      <Products products={products} />
     </div>
-  )
-}
+  );
+};
+export const GET_ALL_PRODUCTS = gql`
+query {
+  getAllProducts {
+    id
+    name
+    stock
+    description
+    price
+    category
+  }
+    }
+  }
+
+`;
 export async function getStaticProps() {
-  const { data,loading } = await client.query({
-    query: gql`
-    query{
-      getAllProducts{
-         id
-        name
-        stock
-        description
-        price
-        category
-      }
-        
-       }
-    `,
+
+  const { data, loading } = useQuery(GET_ALL_PRODUCTS,{
+    fetchPolicy: "network-only" 
   });
-  
+  setNewData(data.getAllProducts)
+
   return {
     props: {
-      products: data.getAllProducts,
-      loading: loading
+      products: newData,
+      loading: loading,
     },
- };
+  };
 }
-
-
 
 export default Home;

@@ -34,11 +34,13 @@ export const CreateProduct = ({ product }: any) => {
   const [modalText, setModalText] = React.useState("");
   const [form] = Form.useForm();
 
-  const [createProduct, { loading }] = useMutation(CREATE_PRODUCT);
+  const [createProduct, { loading }] = useMutation(CREATE_PRODUCT,{
+    fetchPolicy: "network-only",
+  });
 
-  const [updateProduct, { error, data }] = useMutation(UPDATE_PRODUCT);
-
-
+  const [updateProduct, { error, data }] = useMutation(UPDATE_PRODUCT,{
+    fetchPolicy: "network-only" 
+  });
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -85,7 +87,7 @@ export const CreateProduct = ({ product }: any) => {
           },
         });
        
-        if (data?.updateProduct) {
+        if (data) {
           openMessageEdit();
           setTimeout(() => {
             window.location.reload();

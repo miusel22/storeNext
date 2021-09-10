@@ -15,8 +15,11 @@ import { DELETE_PRODUCT } from "../graphql/Mutation";
 
 export const Products = ({ products, loading }: any) => {
   var title = "";
+  console.log(products)
   const { confirm } = Modal;
-  const [deleteProduct, { error }] = useMutation(DELETE_PRODUCT);
+  const [deleteProduct, { error }] = useMutation(DELETE_PRODUCT,{
+    fetchPolicy: "network-only" 
+  });
 
   function confirmDelete(e: any) {
     deleteProduct({ variables: { id: e } });

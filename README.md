@@ -20,6 +20,6 @@ Esta aplicación fue realizada con:
 6. yarn dev
 ## BACKEND 
 
-1. navegar hasta la carpeta backend/server
+1. navegar hasta la carpeta app/backend
 2. yarn
 3. yarn dev

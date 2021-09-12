@@ -6,7 +6,7 @@ Esta aplicación fue realizada con:
 - ExpressJS
 - GraphQL / Express GraphQL / Apollo Client
 - TypeScript
-- MySQL 
+- PostgresQl
 - TypeOrm
 ### ¿Cómo se configura?
 
